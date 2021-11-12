@@ -1,0 +1,24 @@
+from django.shortcuts import render
+
+# Create your views here.
+
+def homepageView(request):
+    return render(request, 'homepage.html')
+
+def admin_signupView(request):
+    return render(request, 'admin_signup.html')
+
+def admin_loginView(request):
+    return render(request, 'admin_login.html')
+
+def add_bookView(request):
+    return render(request, 'add_book.html')
+
+def retrieve_booksView(request):
+    return render(request, 'retrieve_books.html')
+
+def update_bookView(request, pk):
+    return render(request, 'update_book.html')
+
+def student_viewView(request):
+    return render(request, 'student_view.html')

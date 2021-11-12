@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container py-5">
+    <a class="btn btn-primary" href="admin-login" role="button">Admin Login</a>
+    <a class="btn btn-primary" href="admin-signup" role="button" onclick="">Admin SignUp</a>
+</div>
+<script >
+    // To make link active in navbar
+    document.getElementById('nav-home').classList.add("active");
+
+    window.onunload = function(){
+        document.getElementById('nav-home').classList.remove("active");
+    }
+</script>
+{% endblock %}

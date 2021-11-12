@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="container py-5">
+
+            <div class="row " id = "card-container-row">
+
+            </div>
+
+    </div>
+
+    <script src="{% static '/templates/js/student_view.js' %}"></script>
+    <script >
+        // To make link active in navbar
+        document.getElementById('nav-student-view').classList.add("active");
+
+        window.onunload = function(){
+            document.getElementById('nav-student-view').classList.remove("active");
+        }
+    </script>
+
+{% endblock %}

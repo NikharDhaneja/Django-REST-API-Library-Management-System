@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="container py-5">
+
+        <form id="update_bookForm" >
+                {% csrf_token %}
+              <div class="col-6 mb-3 ">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title">
+              </div>
+
+              <div class="col-6 mb-3">
+                <label for="author" class="form-label">Author</label>
+                <input type="text" class="form-control" id="author">
+              </div>
+
+              <div class="col-6 mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" class="form-control" id="category">
+              </div>
+
+              <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+
+    </div>
+
+    <script src="{% static '/templates/js/update_book.js' %}"></script>
+
+{% endblock %}

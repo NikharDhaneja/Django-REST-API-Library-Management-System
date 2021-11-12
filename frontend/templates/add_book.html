@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+    <form id="add_bookForm" >
+            {% csrf_token %}
+          <div class="col-6 mb-3 ">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title">
+          </div>
+
+          <div class="col-6 mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author">
+          </div>
+
+          <div class="col-6 mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input type="text" class="form-control" id="category">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>
+
+    <script src="{% static '/templates/js/add_book.js' %}"></script>
+    <script >
+        // To make link active in navbar
+        document.getElementById('nav-add-book').classList.add("active");
+
+        window.onunload = function(){
+            document.getElementById('nav-add-book').classList.remove("active");
+        }
+    </script>
+{% endblock %}
