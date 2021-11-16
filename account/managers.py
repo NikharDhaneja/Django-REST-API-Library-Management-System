@@ -20,4 +20,4 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
 
-        return self.create_user(email, username, password, **extra_fields)
+        return self.create_user(username, email, password, **extra_fields)

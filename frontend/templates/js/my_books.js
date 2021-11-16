@@ -1,8 +1,15 @@
-// Sending request to Retrieve list Of Books
-fetch('/'+'api/book/', {
+// It makes link active in navbar
+document.getElementById('nav-my-books').classList.add("active");
+window.onunload = function(){
+    document.getElementById('nav-my-books').classList.remove("active");
+}
+
+// Sending request to Retrieve list Of Books by ID
+fetch('/'+'api/book/mybooks/', {
     method: 'GET',
     headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer '+ localStorage.getItem("access_token")
     }
 })
 .then(response => {
@@ -11,7 +18,7 @@ fetch('/'+'api/book/', {
         return response.json();
      }
      else {
-         console.log("retrieve book"+ response);
+         console.log("my books"+ response);
          return response.json();
      }
 })
@@ -99,6 +106,7 @@ let deleteBook = (bookId) => {   // Called from line 67
         method: 'DELETE',
         headers:{
             'Content-Type': 'application/json'
+            'Authorization' : 'Bearer '+ localStorage.getItem("access_token")
         }
     })
     // Converting received data to JSON
@@ -106,7 +114,6 @@ let deleteBook = (bookId) => {   // Called from line 67
         console.log(response)
         if(response.ok){
             window.location.href = "";
-            return response.json()
         }else{
             return response.json()
         }

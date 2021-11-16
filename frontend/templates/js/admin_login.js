@@ -1,3 +1,9 @@
+// IT makes link active in navbar
+document.getElementById('nav-admin-login').classList.add("active");
+window.onunload = function(){
+    document.getElementById('nav-admin-login').classList.remove("active");
+}
+
 const admin_loginForm = document.getElementById('admin_loginForm');
 if(admin_loginForm){
 
@@ -24,9 +30,11 @@ if(admin_loginForm){
              }
         })
         .then(data => {
-            localStorage.setItem("token", data.access);
-            localStorage.setItem("tokenrefresh", data.refresh);
-            window.location.href = "/"+"student-view";
+            localStorage.setItem("access_token", data.access);
+            localStorage.setItem("refresh_token", data.refresh);
+            localStorage.setItem("is_superuser", data.is_superuser)
+
+            window.location.href = "/";
         })
         .catch(error => {
             console.log(error);

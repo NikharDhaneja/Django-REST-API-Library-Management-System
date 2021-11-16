@@ -1,4 +1,10 @@
-// Sending request to Retrieve list Of Books
+// It makes link active in navbar
+document.getElementById('nav-student-view').classList.add("active");
+window.onunload = function(){
+    document.getElementById('nav-student-view').classList.remove("active");
+}
+
+// Sending request to get list Of Books
 fetch('/'+'api/book/', {
     method: 'GET',
     headers:{
@@ -11,7 +17,7 @@ fetch('/'+'api/book/', {
         return response.json();
      }
      else {
-         console.log("retrieve book"+ response);
+         console.log("Student View "+ response);
          return response.json();
      }
 })
@@ -24,7 +30,7 @@ fetch('/'+'api/book/', {
 })
 
 
-let createBookCard = (book) => {       // Called from line 63
+let createBookCard = (book) => {
 
     var cardContainer = document.createElement('div');
     cardContainer.classList.add('col-4')
@@ -60,7 +66,7 @@ let createBookCard = (book) => {       // Called from line 63
 }
 
 
-let createCardOfBooks = (data) => {   // Called from line 20
+let createCardOfBooks = (data) => {
 
     data.forEach((book) => {
         createBookCard(book);

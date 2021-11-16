@@ -14,8 +14,8 @@ def admin_loginView(request):
 def add_bookView(request):
     return render(request, 'add_book.html')
 
-def retrieve_booksView(request):
-    return render(request, 'retrieve_books.html')
+def my_booksView(request):
+    return render(request, 'my_books.html')
 
 def update_bookView(request, pk):
     return render(request, 'update_book.html')

@@ -25,12 +25,5 @@
 </div>
 
     <script src="{% static '/templates/js/add_book.js' %}"></script>
-    <script >
-        // To make link active in navbar
-        document.getElementById('nav-add-book').classList.add("active");
 
-        window.onunload = function(){
-            document.getElementById('nav-add-book').classList.remove("active");
-        }
-    </script>
 {% endblock %}

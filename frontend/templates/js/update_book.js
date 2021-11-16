@@ -8,6 +8,7 @@ if(update_bookForm){
             method: 'PATCH',
             headers:{
                 'Content-Type': 'application/json'
+                'Authorization' : 'Bearer '+ localStorage.getItem("access_token")
             },
             body: JSON.stringify({
                 title: document.getElementById("title").value,
@@ -26,7 +27,7 @@ if(update_bookForm){
         })
         .then(data => {
             console.log(data)
-            
+
         })
         .catch(error => {
             console.log(error);
