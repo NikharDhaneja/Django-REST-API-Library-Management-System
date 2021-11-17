@@ -16,7 +16,7 @@ class BookViewSet(viewsets.ModelViewSet):
     permission_classes = [ IsAdminUserOrReadOnly ]
 
     """
-    Gives Books that are uploaded by the current user.
+    Returns Books that are uploaded by the current admin.
     This is Extra method we added in viewset for routing.
     detail = 'False' means router send you list of objects
     detail = 'True' means returns single object

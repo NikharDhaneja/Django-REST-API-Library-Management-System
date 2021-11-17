@@ -86,7 +86,7 @@ let createBookCard = (book) => {       // Called from line 83
 }
 
 
-let createCardOfBooks = (data) => {   // Called from line 20
+let createCardOfBooks = (data) => {
 
     data.forEach((book) => {
         createBookCard(book);
@@ -94,18 +94,18 @@ let createCardOfBooks = (data) => {   // Called from line 20
 };
 
 
-let setBookId = (bookId) => {   // Called from line 60
+let setBookId = (bookId) => {
     localStorage.setItem("bookId", bookId);
 };
 
 
-let deleteBook = (bookId) => {   // Called from line 67
+let deleteBook = (bookId) => {
 
     // Sending request to delete Book
     fetch('/'+'api/book/'+ bookId +'/',{
         method: 'DELETE',
         headers:{
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
             'Authorization' : 'Bearer '+ localStorage.getItem("access_token")
         }
     })

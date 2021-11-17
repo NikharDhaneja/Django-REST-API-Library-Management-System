@@ -9,7 +9,7 @@ if(admin_signupForm){
 
     admin_signupForm.addEventListener('submit', function(e){
         e.preventDefault()
-        // sending SignUp credential and if valid then redirect to student_view.html page
+        // sending SignUp credential.
         fetch('/'+'api/admin-signup/', {
             method: 'POST',
             headers:{

@@ -7,7 +7,7 @@ if(update_bookForm){
         fetch('/'+'api/book/'+localStorage.getItem("bookId")+'/', {
             method: 'PATCH',
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
                 'Authorization' : 'Bearer '+ localStorage.getItem("access_token")
             },
             body: JSON.stringify({
@@ -19,10 +19,11 @@ if(update_bookForm){
         .then(response => {
             console.log(response)
             if (response.ok) {
-                return response.json();
+                window.location.href = "/"+"my-books";
              }
              else {
                  console.log("add book"+ response);
+                 return response.json();
              }
         })
         .then(data => {
