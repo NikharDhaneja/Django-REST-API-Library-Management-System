@@ -31,7 +31,7 @@ fetch('/'+'api/book/mybooks/', {
 })
 
 
-let createBookCard = (book) => {       
+let createBookCard = (book) => {       // Called from line 83
 
     var cardContainer = document.createElement('div');
     cardContainer.classList.add('col-4')
@@ -86,11 +86,7 @@ let createBookCard = (book) => {
 }
 
 
-<<<<<<< HEAD
 let createCardOfBooks = (data) => {
-=======
-let createCardOfBooks = (data) => {   
->>>>>>> 28b08d825fefc7064839b379fa9d25c42bb45422
 
     data.forEach((book) => {
         createBookCard(book);
@@ -98,20 +94,12 @@ let createCardOfBooks = (data) => {
 };
 
 
-<<<<<<< HEAD
 let setBookId = (bookId) => {
-=======
-let setBookId = (bookId) => {   
->>>>>>> 28b08d825fefc7064839b379fa9d25c42bb45422
     localStorage.setItem("bookId", bookId);
 };
 
 
-<<<<<<< HEAD
 let deleteBook = (bookId) => {
-=======
-let deleteBook = (bookId) => {   
->>>>>>> 28b08d825fefc7064839b379fa9d25c42bb45422
 
     // Sending request to delete Book
     fetch('/'+'api/book/'+ bookId +'/',{
@@ -125,7 +113,7 @@ let deleteBook = (bookId) => {
     .then(response => {
         console.log(response)
         if(response.ok){
-            window.location.href = "";
+            window.location.href = "/" + "my-books/";
         }else{
             return response.json()
         }
