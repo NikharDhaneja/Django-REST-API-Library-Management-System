@@ -4,7 +4,7 @@ from .views import BookViewSet
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
-router.register('api/book', BookViewSet)
+router.register('api/book', BookViewSet, basename = 'book')
 
 # The API URLs are determined automatically by the router.
 urlpatterns = [

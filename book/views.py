@@ -7,13 +7,31 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsAdminUserOrReadOnly
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.db.models import Q
 # Create your views here.
 
 class BookViewSet(viewsets.ModelViewSet):
-    queryset = Book.objects.all().order_by('-created_at')
     serializer_class = BookSerializer
     authentication_classes = [ JWTAuthentication]
     permission_classes = [ IsAdminUserOrReadOnly ]
+
+    """
+    Gives all Books if no query parameter passed and gives filtered
+    Books by category,author and title if query parameter('search_input')
+    is passed by user.
+    """
+    def get_queryset(self):
+        search_input = self.request.GET.get('search_input')
+
+        if( search_input == None):
+            books = Book.objects.all().order_by('-created_at')
+        else:
+            books = Book.objects.filter(
+                Q(category__icontains = search_input)
+                | Q(title__icontains = search_input)
+                | Q(author__icontains = search_input)
+            ).order_by('-created_at')
+        return books
 
     """
     Returns Books that are uploaded by the current admin.
@@ -25,7 +43,7 @@ class BookViewSet(viewsets.ModelViewSet):
     @action(detail = False, methods = ["get"], authentication_classes=[JWTAuthentication], url_path = "mybooks")
     def my_books(self, request):
         print(request.user.id)
-        my_books = self.queryset.filter(admin_id = request.user.id)
+        my_books = self.get_queryset().filter(admin_id = request.user.id)
         serializer = self.get_serializer(my_books, many=True)
         return Response(serializer.data)
 

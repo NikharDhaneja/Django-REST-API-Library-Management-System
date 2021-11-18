@@ -4,30 +4,53 @@ window.onunload = function(){
     document.getElementById('nav-student-view').classList.remove("active");
 }
 
-// Sending request to get list Of Books
-fetch('/'+'api/book/', {
-    method: 'GET',
-    headers:{
-        'Content-Type': 'application/json'
-    }
-})
-.then(response => {
-    console.log(response)
-    if (response.ok) {
-        return response.json();
-     }
-     else {
-         console.log("Student View "+ response);
-         return response.json();
-     }
-})
-.then(data => {
-    console.log(data)
-    createCardOfBooks(data)  // Dynamically creates cards to represent books
-})
-.catch(error => {
-    console.log(error);
-})
+// Url to get all books
+var url = '/'+'api/book/'
+sendRequestToGetBooks(url)
+
+if(search_bookForm){
+
+    search_bookForm.addEventListener('submit', function(e){
+         e.preventDefault()
+
+         // Url with query parameter to get filtered books
+         // Ex - 127.0.0.1:8000/api/books?search_input=physics
+         url = '/'+'api/book?' + $.param({search_input: document.getElementById('search_input').value})
+         sendRequestToGetBooks(url)
+
+    })
+}
+
+function sendRequestToGetBooks(url){
+
+    // Sending request to get list Of Books
+    fetch(url, {
+        method: 'GET',
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        console.log(response)
+        if (response.ok) {
+            return response.json();
+         }
+         else {
+             console.log("Student View "+ response);
+             return response.json();
+         }
+    })
+    .then(data => {
+        console.log(data)
+        createCardOfBooks(data)  // Dynamically creates cards to represent books
+    })
+    .catch(error => {
+        console.log(error);
+    })
+
+}
+
+
 
 
 let createBookCard = (book) => {
@@ -67,7 +90,7 @@ let createBookCard = (book) => {
 
 
 let createCardOfBooks = (data) => {
-
+    document.getElementById('card-container-row').innerHTML = ""
     data.forEach((book) => {
         createBookCard(book);
     });
