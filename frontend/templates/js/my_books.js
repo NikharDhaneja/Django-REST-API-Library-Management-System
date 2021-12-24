@@ -36,6 +36,7 @@ let createBookCard = (book) => {       // Called from line 83
     var cardContainer = document.createElement('div');
     cardContainer.classList.add('col-4')
     cardContainer.style.cssText = "width: 20rem;"
+    cardContainer.classList.add('m-2');
 
     let card = document.createElement('div');
     card.className = 'card ';
@@ -48,13 +49,17 @@ let createBookCard = (book) => {       // Called from line 83
     title.className = 'card-title';
 
     let author = document.createElement('div');
-    author.innerText = book.author;
+    author.innerHTML = "<b>Author - </b>" + book.author;
     author.className = 'card-text';
 
     let category = document.createElement('div');
-    category.innerText = book.category;
+    category.innerHTML = "<b>Category - </b>" + book.category;
     category.className = 'card-text';
-    cardContainer.classList.add('m-2')
+
+    let location = document.createElement('div');
+    location.innerHTML = "<b>Location - </b>" + "floor -> " + book.floor + " shelf -> " + book.shelf ;
+    location.className = 'card-text';
+
 
     const lineBreak = document.createElement('br');
 
@@ -76,6 +81,7 @@ let createBookCard = (book) => {       // Called from line 83
     cardBody.appendChild(title);
     cardBody.appendChild(author);
     cardBody.appendChild(category);
+    cardBody.appendChild(location);
     cardBody.appendChild(lineBreak);
     cardBody.appendChild(updateButton);
     cardBody.appendChild(deleteButton);

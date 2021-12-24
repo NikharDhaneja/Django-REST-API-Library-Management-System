@@ -1,15 +1,19 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from .serializers import BookSerializer
-from .models import Book
+from rest_framework import viewsets, status
+from .serializers import BookSerializer, IssueBookSerializer, ReturnBookSerializer
+from .models import Book, Issue
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from .permissions import IsAdminUserOrReadOnly
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 from django.db.models import Q
-# Create your views here.
+from rest_framework.views import APIView
+from datetime import timedelta, date
 
+
+"""
+CRUD - Book
+"""
 class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
     authentication_classes = [ JWTAuthentication]
@@ -17,8 +21,7 @@ class BookViewSet(viewsets.ModelViewSet):
 
     """
     Gives all Books if no query parameter passed and gives filtered
-    Books by category,author and title if query parameter('search_input')
-    is passed by user.
+    Books by category,author and title if query parameter passed by user.
     """
     def get_queryset(self):
         search_input = self.request.GET.get('search_input')
@@ -42,7 +45,6 @@ class BookViewSet(viewsets.ModelViewSet):
     """
     @action(detail = False, methods = ["get"], authentication_classes=[JWTAuthentication], url_path = "mybooks")
     def my_books(self, request):
-        print(request.user.id)
         my_books = self.get_queryset().filter(admin_id = request.user.id)
         serializer = self.get_serializer(my_books, many=True)
         return Response(serializer.data)
@@ -58,3 +60,44 @@ class BookViewSet(viewsets.ModelViewSet):
     """
     def perform_create(self, serializer):
         serializer.save(admin_id = self.request.user.id)
+
+
+"""
+Issue Book
+"""
+class IssueBook(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAdminUser]
+
+    """
+    This method creates entry when book is being issued
+    """
+    def post(self, request):
+        due_date = date.today() + timedelta(days = 15)
+        request.data['issuer'] = request.user.id
+        request.data['due_date'] = due_date
+        serializer = IssueBookSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+"""
+Return Book
+"""
+@api_view(['POST'])
+def retun_book(request):
+    serializer = ReturnBookSerializer(data = request.data)
+    if serializer.is_valid():
+        obj = Issue.objects.get(book = serializer.data["book"], copy_no = serializer.data["copy_no"])
+        if obj:
+            if not (obj.is_returned):
+                obj.is_returned = True
+                obj.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({"Already Returned"})
+        else:
+            return Response({"No record found"})
+    return Response(serializer.errors)

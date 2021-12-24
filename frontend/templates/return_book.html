@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+    <form id="return_bookForm" >
+            {% csrf_token %}
+          <div class="col-6 mb-3 ">
+            <label for="book-id" class="form-label">Book ID</label>
+            <input type="text" class="form-control" id="book-id">
+          </div>
+
+          <div class="col-6 mb-3">
+            <label for="copy-no" class="form-label">Copy No.</label>
+            <input type="text" class="form-control" id="copy-no">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Return</button>
+    </form>
+</div>
+
+    <script src="{% static '/templates/js/return_book.js' %}"></script>
+
+{% endblock %}

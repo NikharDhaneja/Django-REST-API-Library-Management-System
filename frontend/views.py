@@ -22,3 +22,9 @@ def update_bookView(request, pk):
 
 def student_viewView(request):
     return render(request, 'student_view.html')
+
+def issue_bookView(request):
+    return render(request, 'issue_book.html')
+
+def return_bookView(request):
+    return render(request, 'return_book.html')

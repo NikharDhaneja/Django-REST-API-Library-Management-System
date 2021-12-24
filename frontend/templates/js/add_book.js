@@ -20,6 +20,8 @@ if(add_bookForm){
                 title: document.getElementById("title").value,
                 author: document.getElementById("author").value,
                 category: document.getElementById("category").value,
+                floor: document.getElementById("floor").value,
+                shelf: document.getElementById("shelf").value,
             })
         })
         .then(response => {

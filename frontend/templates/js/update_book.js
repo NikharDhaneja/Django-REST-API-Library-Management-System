@@ -14,6 +14,8 @@ if(update_bookForm){
                 title: document.getElementById("title").value,
                 author: document.getElementById("author").value,
                 category: document.getElementById("category").value,
+                floor: document.getElementById("floor").value,
+                shelf: document.getElementById("shelf").value,
             })
         })
         .then(response => {
@@ -60,6 +62,8 @@ if(localStorage.getItem("bookId"))
                 document.getElementById("title").value = data.title
                 document.getElementById("author").value = data.author
                 document.getElementById("category").value = data.category
+                document.getElementById("floor").value = data.floor
+                document.getElementById("shelf").value = data.shelf
             })
             .catch(error => console.log(error));
             // end

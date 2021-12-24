@@ -7,6 +7,8 @@ from .views import (
     my_booksView,
     update_bookView,
     student_viewView,
+    issue_bookView,
+    return_bookView,
 )
 
 urlpatterns = [
@@ -16,5 +18,7 @@ urlpatterns = [
     path('add-book/', add_bookView),
     path('my-books/', my_booksView),
     path('update-book/<int:pk>', update_bookView),
+    path('issue-book/', issue_bookView),
+    path('return-book/', return_bookView),
     # path('student-view/', student_viewView),
 ]

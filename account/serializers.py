@@ -9,6 +9,9 @@ class AdminSignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
+        extra_kwargs = {
+            'password': {'write_only': True},
+        }
 
     def validate(self, data):
         email = User.objects.filter(email = data['email'])
@@ -24,6 +27,7 @@ class AdminSignUpSerializer(serializers.ModelSerializer):
           user = User.objects.create(
               email=validated_data['email'],
               username = validated_data['username'],
+              is_staff = True,
             )
           user.set_password(validated_data['password'])
           user.save()

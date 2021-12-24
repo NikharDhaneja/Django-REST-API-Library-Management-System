@@ -7,6 +7,7 @@ from .permissions import IsSuperUser
 from rest_framework.permissions import IsAuthenticated
 from .serializers import MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+
 # Create your views here.
 
 """
